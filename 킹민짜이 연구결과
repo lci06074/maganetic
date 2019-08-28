@@ -1,11 +1,12 @@
 from sympy import Derivative
-from sympy import symbol
+from sympy import symbols
 x = symbols('x')
 def dercof(sth):
     L=[]
     for i in range(0, int(len(sth))):
         while len(sth)>i :
              L.append(str(Derivative(sth.pop(),x).doit()))
+        L.reverse()
         return L
 def rd():
     sth=input().split()
@@ -15,14 +16,25 @@ def rd():
         return 'pass'        
     if x != fin:
         return 'fail'
-i = 1
-while i<=4:
-    print('round', i)
-    a = rd()
-    if a== 'pass':
-        i=i+1
-    if a== 'fail':
-        print('try again')
-        break
-    if i==5 and a=='pass':
-        print('success')
+def game() :
+    i = 1
+    while i<=4:
+        print('round', i)
+        a = rd()
+        if a == 'pass':
+            i=i+1
+        if a == 'fail':
+            print('wrong,'+'your score is ' + str(i-1))
+            coin = input('Do you want to try again?'+'The answer should be yes or no')
+            if coin == 'yes' :
+                game()
+            if coin == 'no' :
+                break
+            else :
+                print('taking that as no')
+                break
+        if i==5 and a=='pass':
+            print('success')
+start= input('type start to start')
+if start == 'start' :
+    game()
